@@ -1,0 +1,61 @@
+<odoo>
+  <data>
+    
+    
+    <!-- Sedes Uniacme -->
+
+    <record model="ir.ui.view" id="view_tree_sedes_uniacme">
+      <field name="name">Sedes Uniacme Tree</field>
+      <field name="model">sedes.uniacme</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom">
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="votaciones_uniacme_action_window">
+      <field name="name">Sedes Universitarias</field>
+      <field name="res_model">sedes.uniacme</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="votaciones_uniacme.action_server">
+      <field name="name">votaciones_uniacme server</field>
+      <field name="model_id" ref="model_votaciones_uniacme_votaciones_uniacme"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+    <!-- Top menu item -->
+    <menuitem name="Votaciones" 
+              id="menu_main_votaciones_uniacme"
+              sequence="70"/>
+    
+    
+
+    <!-- menu categories -->
+
+    <menuitem name="Sedes" id="sedes_uniacme_menu" parent="menu_main_votaciones_uniacme"  action="votaciones_uniacme_action_window" sequence="0"/>
+   <!--  <menuitem name="Menu 2" id="votaciones_uniacme.menu_2" parent="votaciones_uniacme.menu_root"/>
+
+    actions -->
+<!--
+    <menuitem name="List" id="votaciones_uniacme.menu_1_list" parent="votaciones_uniacme.menu_1"
+              action="votaciones_uniacme.action_window"/>
+    <menuitem name="Server to list" id="votaciones_uniacme" parent="votaciones_uniacme.menu_2"
+              action="votaciones_uniacme.action_server"/>
+-->
+  </data>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="page_proceso_votacion">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-auto">
+                             <div class="alert alert-success" role="status">
+                                 Identificación verificada correctamente.
+                             </div>
+                        </div>
+                        <section class="s_website_form" data-vcss="001" data-snippet="s_website_form">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-auto">
+                                        <p><span t-esc="estudiante.name"/>, seleccione un proceso de votación y a continuación de click en continuar.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <form  role="form" action="/proceso_votacion" method="POST">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <input type="hidden" name="estudiante" t-att-value="estudiante.id"/>
+                                    <div class="mb-0 py-2 col-12 s_website_form_field s_website_form_required s_website_form_model_required" data-type="email" data-name="Field">
+                                        <div class="row">
+                                            <label class="col-form-label col-sm-4 s_website_form_label" for="proceso">
+                                                <span class="s_website_form_label_content">Proceso de Votación</span>
+                                                <span class="s_website_form_mark"> *</span>
+                                            </label>
+                                            <div class="col-sm-4 align-self-center">
+                                                <select name="proceso_votacion" id="proceso" style="width: 100%;">
+                                                    <t t-foreach="procesos" t-as="pro">
+                                                        <option t-att-value="pro.id" t-out="pro.name" t-att-selected="pro"/>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <button class="btn btn-primary" type="submit">Continuar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                    <p></p>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

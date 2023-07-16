@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="import_proceso_votacion_view_form" model="ir.ui.view">
+        <field name="name">Importar Proceso de Votación</field>
+        <field name="model">import.proceso.votacion</field>
+        <field name="arch" type="xml">
+            <form string="Importar Proceso de Votación">
+                <group>
+                    <field name="document" filename="document_fname"/>
+                    
+                </group>
+                <footer>
+                    <button type="object"
+                    name="button_import"
+                    string="importar" 
+                    class="btn-primary"/>
+                    
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_import_proceso_votacion_wizard" model="ir.actions.act_window">
+        <field name="name">Importar Procesos de Votación</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">import.proceso.votacion</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="import_proceso_votacion_view_form"/>
+        <field name="target">new</field>
+    </record>
+    
+    
+</odoo>

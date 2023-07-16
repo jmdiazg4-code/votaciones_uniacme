@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="proceso_votaciones_form_view" model="ir.ui.view">
+            <field name="name">votaciones.proceso_votaciones.form</field>
+            <field name="model">proceso.votaciones</field>
+            <field name="arch" type="xml">
+                <form string="Proceso de Votación">
+                     <header>
+                        <field name="estado" widget="statusbar" options="{'clickable': '1'}"/>
+                         
+                        <button name="action_imprimir_resultados" type="object" string="Imprimir Resultados" class="oe_highlight"/>
+                    
+                      </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button string="Resultados" class="oe_stat_button" name="action_btn_resultados_votacion" type="object" >
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="fa fa-bar-chart"> Resultados</span>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" placeholder="Descripción de la Votación"/>
+                            </h1>
+                        </div>
+                        <group >
+                            <group>
+                                <field name="fecha_inicio"/>
+                                <field name="fecha_fin"/>
+                            </group>
+                            <group >
+                                <field name="candidatos" widget="many2many_tags" options="{'no_create': True,'no_create_edit': True}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="proceso_votaciones_tree_view" model="ir.ui.view">
+            <field name="name">votaciones.proceso_votaciones.tree</field>
+            <field name="model">proceso.votaciones</field>
+            <field name="arch" type="xml">
+                <header>
+                    <button name="button_proceso" type="object" string="En Proceso"/>
+                    <button name="button_cerrar" type="object" string="Cerrar" />
+                </header>
+                <tree>
+                    <field name="name"/>
+                    <field name="fecha_inicio"/>
+                    <field name="fecha_fin"/>
+                    <field name="candidatos" widget="many2many_tags" options="{'no_create': True,'no_create_edit': True}"/>
+                    <field name="estado"/>
+                    
+                </tree>
+            </field>
+        </record>
+        
+        
+        
+
+        <record id="proceso_votaciones_act_window" model="ir.actions.act_window">
+            <field name="name">Procesos de Votación</field>
+            <field name="res_model">proceso.votaciones</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Crea un proceso de votación
+                </p>
+            </field>
+        </record>
+
+        <menuitem name="Votaciones" id="votaciones_menu" parent="menu_main_votaciones_uniacme" sequence="3"/>
+        <menuitem name="Procesos de Votación" id="proceso_votaciones_menu" parent="votaciones_menu" action="proceso_votaciones_act_window" sequence="0"/>
+        
+        <menuitem name="Importar Procesos de Votacion" id="import_procesos_votacion_menu" parent="votaciones_menu" action="action_import_proceso_votacion_wizard" sequence="4"/>
+        
+        
+        <record id="ir_cron_verificar_procesos" model="ir.cron">
+            <field name="name">Procesos de Votacion que vencieron</field>
+            <field name="model_id" ref="model_proceso_votaciones"/>
+            <field name="state">code</field>
+            <field name="code">model.verificar_vencimiento()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+        </record>
+        
+        
+        
+        <!--<menuitem name="Importar" id="import_proceso_votacion_submenu" parent="import_procesos_votacion_menu" action="votaciones_uniacme.action_import_proceso_votacion_wizard" sequence="0"/>-->
+    </data>
+</odoo>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Respuesta si la cedula no existe-->
+        <record id="votaciones_uniacme.ingreso_denegado" model="website.page">
+            <field name="name">Ingreso Denegado</field>
+            <field name="type">qweb</field>
+            <field name="url">/ingreso-denegado</field>
+            <field name="website_indexed" eval="False"/>
+            <field name="is_published">True</field>
+            <field name="key">votaciones_uniacme.ingreso_denegado</field>
+            <field name="arch" type="xml">
+                <t name="Ingreso Denegado" t-name="votaciones_uniacme.ingreso_denegado">
+                    <t t-call="website.layout">
+                        <div id="wrap" class="oe_structure oe_empty">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <br></br>
+                                        <div class="alert alert-danger" role="status">
+                                            Su número de identificación no se encuentra registrado en el sistema.
+                                        </div>
+                                    </div>
+                                </div>
+                                <form action="/finalizar_votacion" method="GET">
+                                    <button class="btn btn-primary" type="submit">Reintentar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </field>
+        </record>
+        
+        
+        <!-- Respuesta si el estudiante ya votó ese proceso-->
+        <record id="votaciones_uniacme.voto_duplicado" model="website.page">
+            <field name="name">Voto Duplicada</field>
+            <field name="type">qweb</field>
+            <field name="url">/voto-duplicado</field>
+            <field name="website_indexed" eval="False"/>
+            <field name="is_published">True</field>
+            <field name="key">votaciones_uniacme.voto_duplicado</field>
+            <field name="arch" type="xml">
+                <t name="Voto Duplicado" t-name="votaciones_uniacme.voto_duplicado">
+                    <t t-call="website.layout">
+                        <div id="wrap" class="oe_structure oe_empty">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <br></br>
+                                        <div class="alert alert-warning" role="status">
+                                            Ya ha realizado la votación para el proceso seleccionado.
+                                        </div>
+                                    </div>
+                                </div>
+                                <form action="/finalizar_votacion" method="GET">
+                                    <button class="btn btn-primary" type="submit">Volver</button>
+                                </form>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </field>
+        </record>
+        
+        <!-- Respuesta si el estudiante ya votó ese proceso-->
+        <record id="votaciones_uniacme.votacion_final" model="website.page">
+            <field name="name">Votación</field>
+            <field name="type">qweb</field>
+            <field name="url">/votacion_exitosa</field>
+            <field name="website_indexed" eval="False"/>
+            <field name="is_published">True</field>
+            <field name="key">votaciones_uniacme.votacion_final</field>
+            <field name="arch" type="xml">
+                <t name="Votación" t-name="votaciones_uniacme.votacion_final">
+                    <t t-call="website.layout">
+                        <div id="wrap" class="oe_structure oe_empty">
+                            <div class="container">
+                                <div class="row">
+                                    <t t-if="voto">
+                                        <div class="col-lg-8">
+                                            <br></br>
+                                            <div class="alert alert-success" role="status">
+                                                La votación se ha realizado con éxito.
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="col-lg-8">
+                                            <br></br>
+                                            <div class="alert alert-danger" role="status">
+                                                Error Inesperado. Inténtelo de nuevo más tarde.
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+                                <form action="/finalizar_votacion" method="GET">
+                                    <button class="btn btn-primary" type="submit">Finalizar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </field>
+        </record>
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="estudiantes_res_partner_tree_view_inherit" model="ir.ui.view">
+            <field name="name">estudiantes_res_partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="nro_identificacion"/>
+                    <field name="tipo_persona"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="estudiantes_res_partner_form_view" model="ir.ui.view">
+            <field name="name">estudiantes_res_partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position='before'>
+                    <field name="nro_identificacion" placeholder="Nro Identificación"/>
+                    <field name="tipo_persona" readonly="1"/>
+                </xpath>
+                <xpath expr="//page[@name='contact_addresses']" position='before'>
+                    <page string="Universidad" name="info_universidad" autofocus="autofocus" attrs="{'invisible': [('tipo_persona', '=', 'candidato')]}" >
+                        <h2>Datos de la Universidad</h2>
+                        <group name="container">
+                            <group>
+                                <field name="sede_universitaria" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+                            </group>
+                            <group>
+                                <field name="carrera"/>    
+                            </group>
+                         </group>
+                    </page>
+                </xpath>
+                <xpath expr="//page[@name='contact_addresses']" position='before'>
+                    <page string="Procesos de Votación" name="info_procesos_votaciones" autofocus="autofocus" attrs="{'invisible': [('tipo_persona', '=', 'estudiante')]}" >
+                        <h2>Procesos de Votacion</h2>
+                   
+                            
+                            <field name="procesos_votacion" nolabel="1"  readonly="1" options="{'no_create_edit': True}">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="estado"/>
+                                    <field name="fecha_inicio"/>
+                                    <field name="fecha_fin"/>
+                                </tree>
+                            </field>
+                            
+                            
+                         
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!--
+        
+
+        <record id="estudiantes_res_partner_search_view" model="ir.ui.view">
+            <field name="name">ProjectName.estudiantes_res_partner.search</field>
+            <field name="model">ProjectName.estudiantes_res_partner</field>
+            <field name="arch" type="xml">
+                <search string="ModelTitle">
+                    <group expand="1" string="Group By">
+                        <filter string="Example Field" name="example_field" domain="[]"
+                                context="{'group_by':'example_field'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        -->
+
+        <record id="estudiantes_res_partner_act_window" model="ir.actions.act_window">
+            <field name="name">Estudiantes</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('tipo_persona','=','estudiante')]</field>
+            <field name="context">{'default_tipo_persona': 'estudiante'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cree un estudiante
+                </p>
+            </field>
+        </record>
+        
+        <!-- accion de ventana para los candidatos -->
+        <record id="candidatos_res_partner_act_window" model="ir.actions.act_window">
+            <field name="name">Candidatos</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('tipo_persona','=','candidato')]</field>
+            <field name="context">{'default_tipo_persona': 'candidato'}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Cree un candidato
+                </p>
+            </field>
+        </record>
+        
+        
+
+        <menuitem name="Estudiantes" id="estudiantes_res_partner_menu" parent="menu_main_votaciones_uniacme" action="estudiantes_res_partner_act_window" sequence="2"/>
+        <menuitem name="Candidatos" id="candidatos_res_partner_menu" parent="menu_main_votaciones_uniacme" action="candidatos_res_partner_act_window" sequence="1"/>
+
+    </data>
+</odoo>

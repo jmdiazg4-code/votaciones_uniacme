@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sedes_uniacme,sedes.uniacme,model_sedes_uniacme,base.group_user,1,1,1,1
+access_proceso_votaciones,proceso.votaciones,model_proceso_votaciones,base.group_user,1,1,1,1
+access_votacion_online,votacion.online,model_votacion_online,base.group_user,1,1,1,1
+access_import_proceso_votacion,import.proceso.votacion,model_import_proceso_votacion,base.group_user,1,1,1,1

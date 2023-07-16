@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="action_report_resultados_votacion" model="ir.actions.report">
+            <field name="name">Resultados de Votación</field>
+            <field name="model">proceso.votaciones</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">votaciones_uniacme.reporte_custom_resultados_votacion</field>
+        </record>
+
+        <template id="votaciones_uniacme.reporte_custom_resultados_votacion">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h1>Resultados</h1>
+                        <h2><span t-esc="proceso"/> </h2>
+                    </div>
+                    <table class="table table-sm" t-if="resultados" name="result_votaciones">
+                        <thead>
+                            <tr>
+                                <th ><strong>Foto</strong></th>
+                                <th ><strong>Candidato</strong></th>
+                                <th ><strong>Total Votos</strong></th>
+                            </tr>
+                        </thead>
+                    
+                        <tbody>
+                            <tr t-foreach="resultados" t-as="result">
+                                <td class="text-center">
+                                    <span>
+                                        
+                                        <img t-att-src="'data:image/png;base64,%s' % result['photo']" style="width:35%;"/>
+                                    </span>
+                                    
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="result['name']" ></span>
+                                </td>
+                                <td class="text-center">
+                                    <span t-esc="result['total']"></span>
+                                </td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

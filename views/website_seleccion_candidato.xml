@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="page_eleccion_candidato">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <div class="row">
+                        <section class="s_website_form" data-vcss="001" data-snippet="s_website_form">
+                            <div class="container">
+                                <div class="row">
+                                    <br></br>
+                                    <div class="col-auto">
+                                        <h3>Seleccione el candidato de su preferencia a continuación de click en votar.</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <form  role="form" action="/select_candidato" method="POST">
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <input type="hidden" name="estudiante" t-att-value="estudiante"/>
+                                    <input type="hidden" name="proceso" t-att-value="proceso"/>
+                                    <div class="mb-0 py-2 col-12 s_website_form_field s_website_form_required s_website_form_model_required" data-type="email" data-name="Field">
+                                        <div class="row">
+                                            <label class="col-form-label col-sm-4 s_website_form_label" for="proceso">
+                                                <span class="s_website_form_label_content">Candidato</span>
+                                                <span class="s_website_form_mark"> *</span>
+                                            </label>
+                                            <div class="col-sm-4 align-self-center">
+                                                <select name="candidato" id="candidato" style="width: 100%;">
+                                                    <t t-foreach="candidatos" t-as="candidato">
+                                                        <option t-att-value="candidato.id" t-out="candidato.name" t-att-selected="candidato"/>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <button class="btn btn-primary" type="submit">Votar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                    <p></p>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
